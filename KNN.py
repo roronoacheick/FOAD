@@ -18,3 +18,12 @@ class KNN:
             difference = point_a[feature_index] - point_b[feature_index]
             sum_of_squares += difference ** 2
         return sum_of_squares ** 0.5
+    
+    def _get_neighbors(self, test_point):
+        distances = []
+        for index in range(len(self.training_points)):
+            distance = self._euclidean_distance(test_point, self.training_points[index])
+            distances.append((distance, self.training_labels[index]))
+        distances.sort(key=lambda pair: pair[0])
+        neighbors = distances[:self.k]
+        return neighbors
